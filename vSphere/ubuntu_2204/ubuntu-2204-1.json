@@ -71,7 +71,6 @@
         "{{template_dir}}/scripts/update.sh",
         "{{template_dir}}/scripts/networking.sh",
         "{{template_dir}}/scripts/cleanup.sh",
-        "script.sh"
       ],
       "type": "shell"
     }
