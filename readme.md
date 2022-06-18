@@ -26,13 +26,16 @@ This repo contains Packer templates suitable to create RKE VM's for a number of 
 | SLES          | 15 SP 2     | [Link](/vSphere/sles_15_sp2/install.sh)         | None                                                                                    |
 | Ubuntu        | 18.04       | [Link](/vSphere/ubuntu_1804/script.sh)          | [Disable DHCP](/vSphere/ubuntu_1804/customisation_scripts/script-no-dhcp.sh)            |
 | Ubuntu        | 20.04       | [Link](/vSphere/ubuntu_2004/script.sh)          | [Disable DHCP](/vSphere/ubuntu_2004/customisation_scripts/script-no-dhcp.sh)|
-|              |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2004/customisation_scripts/script-cloudinit-guestinfo.sh)|
+|               |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2004/customisation_scripts/script-cloudinit-guestinfo.sh)|
 |               |             |                                                 | [Longhorn](/vSphere/ubuntu_2004/customisation_scripts/script-longhorn.sh)|
 | Ubuntu        | 22.04       | [Link](/vSphere/ubuntu_2204/script.sh)          | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
-|              |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
+|               |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
 |               |             |                                                 | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh)|
-| Ubuntu (actually working)       | 22.04       | [Link (heavily modified)](/vSphere/ubuntu_2204-1/script.sh)          | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
-|              |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
+| Ubuntu (actually working)   | 22.04       | [Update](/vSphere/ubuntu_2204-1/customisation_scripts/update.sh)|                                            |
+|               |             | [Networking](/vSphere/ubuntu_2204-1/customisation_scripts/networking.sh)|                                                       |
+|               |             | [Cleanup](/vSphere/ubuntu_2204-1/customisation_scripts/cleanup.sh)|                                                          |
+|               |             |                                                 | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
+|               |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
 |               |             |                                                 | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh)|
 
 ## To do
