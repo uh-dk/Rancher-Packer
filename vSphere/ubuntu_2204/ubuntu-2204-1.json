@@ -36,7 +36,6 @@
       "host": "{{user `host`}}",
       "datastore": "{{user `datastore`}}",
       "disk_controller_type": "pvscsi",
-      "hard_drive_interface": "sata",
       "headless": "{{ user `headless` }}",
       "convert_to_template": "true",
       "network_adapters": [
@@ -58,6 +57,7 @@
       "ssh_handshake_attempts": "50",
       "ssh_timeout": "1h",
       "ssh_port": 22,
+      "output_directory": "{{ user `build_directory` }}/packer-{{user `template`}}-vmware",
       "http_directory": "http",
       "insecure_connection": "true",
       "username": "{{user `username`}}",
