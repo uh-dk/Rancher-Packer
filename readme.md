@@ -31,8 +31,9 @@ This repo contains Packer templates suitable to create RKE VM's for a number of 
 | Ubuntu        | 22.04       | [Link](/vSphere/ubuntu_2204/script.sh)          | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
 |              |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
 |               |             |                                                 | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh)|
-|               |             |                                                 | [No Snapd, no dockerio](/vSphere/ubuntu_2204/customisation_scripts/script-rm-snap-no-dockerio.sh)|
-
+| Ubuntu (actually working)       | 22.04       | [Link (heavily modified)](/vSphere/ubuntu_2204-1/script.sh)          | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
+|              |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
+|               |             |                                                 | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh)|
 
 ## To do
 
