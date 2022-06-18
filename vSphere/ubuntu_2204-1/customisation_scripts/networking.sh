@@ -11,6 +11,7 @@ network:
   ethernets:
     eth0:
       dhcp4: true
+      dhcp-identifier: mac
 EOF
 else
   # Adding a 2 sec delay to the interface up, to make the dhclient happy
