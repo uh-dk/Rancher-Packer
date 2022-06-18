@@ -1,4 +1,4 @@
-Ubuntu 2004 Install using the newer Subiquity based installer 
+Ubuntu 2204 Install using the newer Subiquity based installer 
 
 Used Nick Charlton's config as a template, modifying it for RKE use:
 
