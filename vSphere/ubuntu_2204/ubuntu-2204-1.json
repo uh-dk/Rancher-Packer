@@ -62,8 +62,8 @@
       "password": "{{user `password`}}",
       "vcenter_server": "{{user `vcenter_server`}}",
       "vm_name": "{{user `template_name`}}"
+    }
   ],
-
   "provisioners": [
     {
       "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'",
@@ -73,4 +73,4 @@
       "type": "shell"
     }
   ]
-} 
+}
