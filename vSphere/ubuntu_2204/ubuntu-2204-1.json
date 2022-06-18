@@ -68,9 +68,9 @@
     {
       "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "{{template_dir}}/scripts/update.sh",
-        "{{template_dir}}/scripts/networking.sh",
-        "{{template_dir}}/scripts/cleanup.sh",
+        "{{template_dir}}/customisation_scripts/update.sh",
+        "{{template_dir}}/customisation_scripts/networking.sh",
+        "{{template_dir}}/customisation_scripts/cleanup.sh",
       ],
       "type": "shell"
     }
