@@ -70,7 +70,7 @@
       "scripts": [
         "{{template_dir}}/customisation_scripts/update.sh",
         "{{template_dir}}/customisation_scripts/networking.sh",
-        "{{template_dir}}/customisation_scripts/cleanup.sh",
+        "{{template_dir}}/customisation_scripts/cleanup.sh"
       ],
       "type": "shell"
     }
