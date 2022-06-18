@@ -10,6 +10,7 @@ This repo contains Packer templates suitable to create RKE VM's for a number of 
 * Rename `variables.json.example` to `variables.json`
 * Populate `variables.json` with information specific to your environment
 * If desired, replace `script.sh` with one of the variants located in the corresponding `customisation_scripts` folder. 
+* For Ubuntu 22.04 (with preseed) edit the `preseed.cfg` file to your needs located in the `http` folder.
 * Build with the template and variables files. For example : `packer build -var-file=variables.json ubuntu-18.json` 
 
 ## Current Templates
@@ -31,7 +32,7 @@ This repo contains Packer templates suitable to create RKE VM's for a number of 
 | Ubuntu        | 22.04       | [Link](/vSphere/ubuntu_2204/script.sh)          | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
 |               |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
 |               |             |                                                 | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh)|
-| Ubuntu (works with Rancher 2.6.3)   | 22.04       | [Update](/vSphere/ubuntu_2204-1/customisation_scripts/update.sh)|                                            |
+| Ubuntu (with preseed)   | 22.04       | [Update](/vSphere/ubuntu_2204-1/customisation_scripts/update.sh)|                                            |
 |               |             | [Networking](/vSphere/ubuntu_2204-1/customisation_scripts/networking.sh)|                                                       |
 |               |             | [Cleanup](/vSphere/ubuntu_2204-1/customisation_scripts/cleanup.sh)|                                                          |
 |               |             |                                                 | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
