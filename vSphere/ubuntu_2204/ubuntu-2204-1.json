@@ -28,7 +28,7 @@
       "type": "vsphere-iso",
       "guest_os_type": "ubuntu-64",
       "cpus": "{{ user `cpus` }}",
-      "memory": "{{ user `memory` }}",
+      "ram": "{{ user `ram` }}",
       "boot_order": "disk,cdrom",
       "cluster": "{{user `cluster`}}",
       "folder": "{{user `folder`}}",
@@ -36,7 +36,6 @@
       "host": "{{user `host`}}",
       "datastore": "{{user `datastore`}}",
       "disk_controller_type": "pvscsi",
-      "headless": "{{ user `headless` }}",
       "convert_to_template": "true",
       "network_adapters": [
         {
@@ -57,19 +56,12 @@
       "ssh_handshake_attempts": "50",
       "ssh_timeout": "1h",
       "ssh_port": 22,
-      "output_directory": "{{ user `build_directory` }}/packer-{{user `template`}}-vmware",
       "http_directory": "http",
       "insecure_connection": "true",
       "username": "{{user `username`}}",
       "password": "{{user `password`}}",
       "vcenter_server": "{{user `vcenter_server`}}",
       "vm_name": "{{user `template_name`}}",
-      "vmx_data": {
-          "cpuid.coresPerSocket": "1",
-          "ethernet0.pciSlotNumber": "32"
-      },
-      "vmx_remove_ethernet_interfaces": true
-    }
   ],
 
   "provisioners": [
