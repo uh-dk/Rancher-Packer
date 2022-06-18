@@ -26,7 +26,7 @@
       "boot_wait": "5s",
       "name": "ubuntu-2204",
       "type": "vsphere-iso",
-      "guest_os_type": "ubuntu-64",
+      "guest_os_type": "ubuntu64Guest",
       "cpus": "{{ user `cpus` }}",
       "ram": "{{ user `ram` }}",
       "boot_order": "disk,cdrom",
