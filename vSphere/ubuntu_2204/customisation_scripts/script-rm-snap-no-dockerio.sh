@@ -1,5 +1,4 @@
 # Remove snap
-snap remove snap
 snap remove lxd
 snap remove core20
 snap remove snapd
