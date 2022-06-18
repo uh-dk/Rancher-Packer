@@ -61,7 +61,7 @@
       "username": "{{user `username`}}",
       "password": "{{user `password`}}",
       "vcenter_server": "{{user `vcenter_server`}}",
-      "vm_name": "{{user `template_name`}}",
+      "vm_name": "{{user `template_name`}}"
   ],
 
   "provisioners": [
