@@ -185,8 +185,16 @@ cat << EOF > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
 datasource_list: [ NoCloud, AltCloud, VMware, None ]
 EOF
 
+echo "disable cloud-init network configuration"
+cat << EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+network: {config disbaled}
+EOF
+
 echo "remove the contents of /tmp and /var/tmp"
 rm -rf /tmp/* /var/tmp/*
+
+echo "remove installer netplan config"
+rm /etc/netplan/00-installer-config.yaml
 
 echo "force a new random seed to be generated"
 rm -f /var/lib/systemd/random-seed
