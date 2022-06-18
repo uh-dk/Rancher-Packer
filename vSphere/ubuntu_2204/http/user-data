@@ -33,10 +33,10 @@ autoinstall:
       path: /
       type: mount
   keyboard:
-      layout: en
-      variant: uk
+      layout: de
+      variant: de
   identity:
-      hostname: ubuntu
+      hostname: ubuntu-2204
       username: packerbuilt
       password: '$1$rKxy/hZT$vAZ801S0/UEAEmVKogUdU0' # Password in hashed format
   ssh:
