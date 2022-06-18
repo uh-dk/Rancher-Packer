@@ -10,7 +10,5 @@
     "cluster": "",
     "network": "",
     "ssh_username": "packerbuilt",
-    "ssh_password": "PackerBuilt!",
-    "cpus":"2",
-    "ram":"2048"
+    "ssh_password": "PackerBuilt!"
 }
