@@ -182,7 +182,7 @@ EOF
 
 cat << EOF > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
 # to update this file, run dpkg-reconfigure cloud-init
-datasource_list: [ NoCloud, AltCloud, VMware, None ]
+datasource_list: [ AltCloud, VMware, NoCloud, None ]
 EOF
 
 echo "disable cloud-init network configuration"
