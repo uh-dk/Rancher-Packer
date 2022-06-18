@@ -1,7 +1,7 @@
 # Remove snap
-snap remove core18
-snap remove core20
+snap remove snap
 snap remove lxd
+snap remove core20
 snap remove snapd
 # Apply updates and cleanup Apt cache
 # packer build --var-file=variables.json ubuntu-2204.json
