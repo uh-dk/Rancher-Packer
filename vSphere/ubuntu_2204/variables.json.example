@@ -1,14 +1,16 @@
 {
-    "template_name":"ubuntu_2204"
-    "vcenter_server":"",
+    "template_name":"ubuntu_2204_packer-template",
+    "vcenter_server":"vcenter.domain.local",
     "username":"administrator@vsphere.local",
     "password":"",
     "datastore":"",
-    "folder": "",
+    "folder": "Templates",
     "host":"",
-    "cluster":"",
-    "datacenter":"DC1"
-    "network":"",
+    "datacenter": "",
+    "cluster": "",
+    "network": "",
     "ssh_username": "packerbuilt",
-    "ssh_password": "PackerBuilt!"
+    "ssh_password": "PackerBuilt!",
+    "cpus":"2",
+    "ram":"2048"
 }
