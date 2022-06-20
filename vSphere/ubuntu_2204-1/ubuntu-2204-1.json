@@ -69,8 +69,8 @@
       "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'",
       "expect_disconnect": true,
       "scripts": [
-        "{{template_dir}}/customisation_scripts/update.sh",
         "{{template_dir}}/customisation_scripts/networking.sh",
+        "{{template_dir}}/customisation_scripts/update.sh",
         "{{template_dir}}/customisation_scripts/cleanup.sh"
       ],
       "type": "shell"
