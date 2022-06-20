@@ -8,6 +8,7 @@ echo "Create netplan config for eth0"
 cat <<EOF >/etc/netplan/01-netcfg.yaml;
 network:
   version: 2
+  renderer: NetworkManager
   ethernets:
     eth0:
       dhcp4: true
