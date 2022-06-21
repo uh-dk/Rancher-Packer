@@ -45,13 +45,10 @@ echo "remove obsolete networking packages"
 apt-get -y purge ppp pppconfig pppoeconf;
 
 echo "remove packages we don't need"
-apt-get -y purge popularity-contest friendly-recovery laptop-detect motd-news-config usbutils grub-legacy-ec2
+apt-get -y purge popularity-contest friendly-recovery laptop-detect motd-news-config usbutils grub-legacy-ec2 multipath-tools
 
 echo "remove the console font"
 apt-get -y purge fonts-ubuntu-console || true;
-
-echo "remove multipath-tools"
-apt-get -y purge --auto-remove multipath-tools
 
 echo "remove snap"
 snap remove lxd
