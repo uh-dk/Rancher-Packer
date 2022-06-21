@@ -168,19 +168,18 @@ echo "Reset Cloud-Init"
 rm /etc/cloud/cloud.cfg.d/*.cfg
 cloud-init clean -s -l
 
+echo "force a new random seed to be generated"
+rm -f /var/lib/systemd/random-seed
+
+echo "disable cloud-init network configuration"
+cat << EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+network: {config disbaled}
+EOF
+
 # Add Cloudinit configs
 #
 echo "Add Cloudinit configs"
 cat << EOF > /etc/cloud/cloud.cfg.d/05_logging.cfg
-## This yaml formated config file handles setting
-## logger information.  The values that are necessary to be set
-## are seen at the bottom.  The top '_log' are only used to remove
-## redundency in a syslog and fallback-to-file case.
-##
-## The 'log_cfgs' entry defines a list of logger configs
-## Each entry in the list is tried, and the first one that
-## works is used.  If a log_cfg list entry is an array, it will
-## be joined with '\n'.
 _log:
  - &log_base |
    [loggers]
@@ -226,20 +225,7 @@ _log:
    formatter=simpleFormatter
    args=("/dev/log", handlers.SysLogHandler.LOG_USER)
 log_cfgs:
-# Array entries in this list will be joined into a string
-# that defines the configuration.
-#
-# If you want logs to go to syslog, uncomment the following line.
-# - [ *log_base, *log_syslog ]
-#
-# The default behavior is to just log to a file.
-# This mechanism that does not depend on a system service to operate.
  - [ *log_base, *log_file ]
-# A file path can also be used.
-# - /etc/log.conf
-# This tells cloud-init to redirect its stdout and stderr to
-# 'tee -a /var/log/cloud-init-output.log' so the user can see output
-# there without needing to look on the console.
 output: {all: '| tee -a /var/log/cloud-init-output.log'}
 EOF
 
@@ -248,20 +234,18 @@ cat << EOF > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
 datasource_list: [ AltCloud, VMware, NoCloud, None ]
 EOF
 
-echo "disable cloud-init network configuration"
-cat << EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-network: {config disbaled}
-EOF
-
+# Clean tmp
+#
 echo "remove the contents of /tmp and /var/tmp"
 rm -rf /tmp/* /var/tmp/*
 
+# Remove netplan installer cfg
+#
 echo "remove installer netplan config"
 rm /etc/netplan/00-installer-config.yaml
 
-echo "force a new random seed to be generated"
-rm -f /var/lib/systemd/random-seed
-
+# Clear history
+#
 echo "clear the history so our install isn't there"
 rm -f /root/.wget-hsts
 export HISTSIZE=0
