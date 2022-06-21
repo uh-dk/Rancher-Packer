@@ -47,4 +47,7 @@ autoinstall:
   late-commands:
     - echo 'packerbuilt ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packerbuilt
     - chmod 440 /target/etc/sudoers.d/packerbuilt
+    - usermod -u 1012 packerbuilt;
+    - groupmod -g 1012 packerbuilt
+    - chown -r packerbuilt:packerbuilt /target/home/packerbuilt
     - sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf
