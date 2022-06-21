@@ -44,9 +44,6 @@ apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
 echo "remove obsolete networking packages"
 apt-get -y purge ppp pppconfig pppoeconf;
 
-echo "remove packages we don't need"
-apt-get -y purge popularity-contest friendly-recovery laptop-detect motd-news-config usbutils grub-legacy-ec2 multipath-tools
-
 echo "remove the console font"
 apt-get -y purge fonts-ubuntu-console || true;
 
@@ -54,7 +51,9 @@ echo "remove snap"
 snap remove lxd
 snap remove core20
 snap remove snapd
-apt-get -y purge --auto-remove snapd
+
+echo "remove packages we don't need"
+apt-get -y purge popularity-contest friendly-recovery laptop-detect motd-news-config usbutils grub-legacy-ec2 multipath-tools snapd;
 
 # Exclude the files we don't need w/o uninstalling linux-firmware
 echo "Setup dpkg excludes for linux-firmware"
