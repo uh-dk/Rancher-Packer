@@ -35,6 +35,7 @@
       "datacenter": "{{user `datacenter`}}",
       "host": "{{user `host`}}",
       "datastore": "{{user `datastore`}}",
+      "firmware" : "{{user `firmware`}}",
       "disk_controller_type": "pvscsi",
       "convert_to_template": "true",
       "network_adapters": [
