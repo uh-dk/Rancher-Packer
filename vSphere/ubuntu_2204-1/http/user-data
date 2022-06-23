@@ -7,6 +7,10 @@ autoinstall:
   keyboard:
       layout: de
       variant: de
+  timezone: Europe/Berlin
+  ntp:
+  enabled: true
+  ntp_client: chrony
   identity:
       hostname: ubuntu-2204
       username: packerbuilt
@@ -24,7 +28,10 @@ autoinstall:
     - traceroute
     - original-awk
     - mc
-storage:
+  package_update: true
+  package_upgrade: true
+  package_reboot_if_required: true
+  storage:
     config:
     - ptable: gpt
       path: /dev/sda
@@ -105,9 +112,6 @@ storage:
     - echo 'packerbuilt ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packerbuilt
     - chmod 440 /target/etc/sudoers.d/packerbuilt
     - sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf
-  package_update: true
-  package_upgrade: true
-  late-commands:
     # Changing from networkd to NetworkManager
     # move existing config out of the way
     - find /target/etc/netplan/ -name "*.yaml" -exec sh -c 'mv "$1" "$1-orig"' _ {} \;
