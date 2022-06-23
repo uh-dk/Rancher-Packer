@@ -32,9 +32,9 @@ This repo contains Packer templates suitable to create RKE VM's for a number of 
 | Ubuntu        | 22.04       | [Link](/vSphere/ubuntu_2204/script.sh)          | [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
 |               |             |                                                 | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
 |               |             |                                                 | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh)|
-| Ubuntu (with preseed)   | 22.04       | [Update](/vSphere/ubuntu_2204-1/customisation_scripts/update.sh), [Networking](/vSphere/ubuntu_2204-1/customisation_scripts/networking.sh), [Cleanup](/vSphere/ubuntu_2204-1/customisation_scripts/cleanup.sh)| [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh) Replace/edit the scripts part in [ubuntu_2204-1.json](/vSphere/ubuntu_2204-1/ubuntu_2204-1.json)|
-|               |             | | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh) Replace/edit the scripts part in [ubuntu_2204-1.json](/vSphere/ubuntu_2204-1/ubuntu_2204-1.json)|
-|               |             | | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh) Replace/edit the scripts part in [ubuntu_2204-1.json](/vSphere/ubuntu_2204-1/ubuntu_2204-1.json)|
+| Ubuntu        | 22.04       | [Link](/vSphere/ubuntu_2204-1/script.sh) (modifies setup script & user-data)| [Disable DHCP](/vSphere/ubuntu_2204/customisation_scripts/script-no-dhcp.sh)|
+|               |             | | [Guestinfo OVF](/vSphere/ubuntu_2204/customisation_scripts/script-cloudinit-guestinfo.sh)|
+|               |             | | [Longhorn](/vSphere/ubuntu_2204/customisation_scripts/script-longhorn.sh)|
 
 ## To do
 
