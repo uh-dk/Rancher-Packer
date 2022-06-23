@@ -10,7 +10,6 @@ This repo contains Packer templates suitable to create RKE VM's for a number of 
 * Rename `variables.json.example` to `variables.json`
 * Populate `variables.json` with information specific to your environment
 * If desired, replace `script.sh` with one of the variants located in the corresponding `customisation_scripts` folder. 
-* For Ubuntu 22.04 (with preseed) edit the `preseed.cfg` file to your needs located in the `http` folder.
 * Build with the template and variables files. For example : `packer build -var-file=variables.json ubuntu-18.json` 
 
 ## Current Templates
