@@ -1,33 +1,4 @@
 #!/bin/sh -eux
-
-### Networking ###
-echo "# Networking"
-
-ubuntu_version="`lsb_release -r | awk '{print $2}'`";
-major_version="`echo $ubuntu_version | awk -F. '{print $1}'`";
-
-if [ "$major_version" -ge "18" ]; then
-echo "Create netplan config for eth0"
-cat <<EOF >/etc/netplan/01-netcfg.yaml;
-network:
-  version: 2
-  renderer: NetworkManager
-  ethernets:
-    eth0:
-      dhcp4: true
-      dhcp-identifier: mac
-EOF
-else
-  # Adding a 2 sec delay to the interface up, to make the dhclient happy
-  echo "pre-up sleep 2" >> /etc/network/interfaces;
-fi
-
-# Disable Predictable Network Interface names and use eth0
-[ -e /etc/network/interfaces ] && sed -i 's/en[[:alnum:]]*/eth0/g' /etc/network/interfaces;
-sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0 \1"/g' /etc/default/grub;
-update-grub;
-
-
 ### Update ###
 echo "## Update"
 
@@ -60,9 +31,6 @@ apt-get -y purge unattended-upgrades ubuntu-release-upgrader-core;
 
 echo "update the package list"
 apt-get -y update;
-
-echo "install useful tools"
-apt-get -y install network-manager mc original-awk traceroute net-tools cloud-initramfs-growroot;
 
 echo "upgrade all installed packages incl. kernel and kernel headers"
 apt-get -y dist-upgrade -o Dpkg::Options::="--force-confnew";
@@ -170,69 +138,6 @@ cloud-init clean -s -l
 
 echo "force a new random seed to be generated"
 rm -f /var/lib/systemd/random-seed
-
-echo "disable cloud-init network configuration"
-cat << EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-network: {config disbaled}
-EOF
-
-# Add Cloudinit configs
-#
-echo "Add Cloudinit configs"
-cat << EOF > /etc/cloud/cloud.cfg.d/05_logging.cfg
-_log:
- - &log_base |
-   [loggers]
-   keys=root,cloudinit
-   
-   [handlers]
-   keys=consoleHandler,cloudLogHandler
-   
-   [formatters]
-   keys=simpleFormatter,arg0Formatter
-   
-   [logger_root]
-   level=DEBUG
-   handlers=consoleHandler,cloudLogHandler
-   
-   [logger_cloudinit]
-   level=DEBUG
-   qualname=cloudinit
-   handlers=
-   propagate=1
-   
-   [handler_consoleHandler]
-   class=StreamHandler
-   level=WARNING
-   formatter=arg0Formatter
-   args=(sys.stderr,)
-   
-   [formatter_arg0Formatter]
-   format=%(asctime)s - %(filename)s[%(levelname)s]: %(message)s
-   
-   [formatter_simpleFormatter]
-   format=[CLOUDINIT] %(filename)s[%(levelname)s]: %(message)s
- - &log_file |
-   [handler_cloudLogHandler]
-   class=FileHandler
-   level=DEBUG
-   formatter=arg0Formatter
-   args=('/var/log/cloud-init.log', 'a', 'UTF-8')
- - &log_syslog |
-   [handler_cloudLogHandler]
-   class=handlers.SysLogHandler
-   level=DEBUG
-   formatter=simpleFormatter
-   args=("/dev/log", handlers.SysLogHandler.LOG_USER)
-log_cfgs:
- - [ *log_base, *log_file ]
-output: {all: '| tee -a /var/log/cloud-init-output.log'}
-EOF
-
-cat << EOF > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
-# to update this file, run dpkg-reconfigure cloud-init
-datasource_list: [ AltCloud, VMware, NoCloud, None ]
-EOF
 
 # Clean tmp
 #
