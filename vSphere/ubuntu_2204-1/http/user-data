@@ -36,13 +36,9 @@ autoinstall:
   late-commands:
     - echo 'packerbuilt ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packerbuilt;
     - chmod 440 /target/etc/sudoers.d/packerbuilt;
-    - sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0 \1"/g' /target/etc/default/grub;
+    - sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0\1"/g' /target/etc/default/grub;
     - sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf;
-    - update-grub;
-    # Changing from networkd to NetworkManager
-    # move existing config out of the way
     - find /target/etc/netplan/ -name "*.yaml" -exec sh -c 'mv "$1" "$1-orig"' _ {} \;
-    # Create a new netplan and enable it
     - |
       cat <<EOF | sudo tee /target/etc/netplan/01-netcfg.yaml
       network:
@@ -54,7 +50,7 @@ autoinstall:
             dhcp-identifier: mac
       EOF
     - |
-      cat << EOF > /etc/cloud/cloud.cfg.d/05_logging.cfg
+      cat << EOF > /target/etc/cloud/cloud.cfg.d/05_logging.cfg
       _log:
        - &log_base |
          [loggers]
@@ -97,12 +93,12 @@ autoinstall:
          output: {all: '| tee -a /var/log/cloud-init-output.log'}
       EOF
     - |
-      cat << EOF > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+      cat << EOF > /target/etc/cloud/cloud.cfg.d/90_dpkg.cfg
       # to update this file, run dpkg-reconfigure cloud-init
       datasource_list: [ AltCloud, VMware, NoCloud, None ]
       EOF
     - |
-      cat << EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+      cat << EOF > /target/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
       network: {config disbaled}
       EOF
     - curtin in-target --target /target netplan generate
