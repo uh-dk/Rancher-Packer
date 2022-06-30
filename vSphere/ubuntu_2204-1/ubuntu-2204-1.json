@@ -70,7 +70,7 @@
       "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'",
       "expect_disconnect": true,
       "scripts": [
-        "{{template_dir}}/setup.sh"
+        "{{template_dir}}/script.sh"
       ],
       "type": "shell"
     }
