@@ -1,6 +1,32 @@
 #!/bin/sh -eux
+
+### Network ###
+echo "# Network..."
+
+sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0 \1"/g' /target/etc/default/grub;
+sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf;
+
+echo "removing all netplan configs"
+find /target/etc/netplan/ -name "*.yaml" -exec sh -c 'mv "$1" "$1-orig"' _ {} \;
+
+echo "create netplan DHCP config"
+cat <<EOF | sudo tee /target/etc/netplan/01-netcfg.yaml
+      network:
+        version: 2
+        renderer: NetworkManager
+        ethernets:
+          eth0:
+            dhcp4: true
+            dhcp-identifier: mac
+EOF
+
+echo "apply netplan config"
+netplan generate;
+netplan apply;
+systemctl enable NetworkManager.service;
+
 ### Update ###
-echo "## Update"
+echo "## Update..."
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -37,7 +63,7 @@ apt-get -y dist-upgrade -o Dpkg::Options::="--force-confnew";
 
 
 ### Cleanup ###
-echo "### Cleanup"
+echo "### Cleanup..."
 
 echo "remove linux-headers"
 dpkg --list \
@@ -144,10 +170,74 @@ rm -f /var/lib/systemd/random-seed
 echo "remove the contents of /tmp and /var/tmp"
 rm -rf /tmp/* /var/tmp/*
 
-# Remove netplan installer cfg
+# Add logging cfg
 #
-echo "remove installer netplan config"
-rm /etc/netplan/00-installer-config.yaml
+echo "adding 05_logging.cfg"
+cat << EOF > /etc/cloud/cloud.cfg.d/05_logging.cfg
+_log:
+ - &log_base |
+   [loggers]
+   keys=root,cloudinit
+   
+   [handlers]
+   keys=consoleHandler,cloudLogHandler
+   
+   [formatters]
+   keys=simpleFormatter,arg0Formatter
+   
+   [logger_root]
+   level=DEBUG
+   handlers=consoleHandler,cloudLogHandler
+   
+   [logger_cloudinit]
+   level=DEBUG
+   qualname=cloudinit
+   handlers=
+   propagate=1
+   
+   [handler_consoleHandler]
+   class=StreamHandler
+   level=WARNING
+   formatter=arg0Formatter
+   args=(sys.stderr,)
+   
+   [formatter_arg0Formatter]
+   format=%(asctime)s - %(filename)s[%(levelname)s]: %(message)s
+   
+   [formatter_simpleFormatter]
+   format=[CLOUDINIT] %(filename)s[%(levelname)s]: %(message)s
+ - &log_file |
+   [handler_cloudLogHandler]
+   class=FileHandler
+   level=DEBUG
+   formatter=arg0Formatter
+   args=('/var/log/cloud-init.log', 'a', 'UTF-8')
+ - &log_syslog |
+   [handler_cloudLogHandler]
+   class=handlers.SysLogHandler
+   level=DEBUG
+   formatter=simpleFormatter
+   args=("/dev/log", handlers.SysLogHandler.LOG_USER)
+
+log_cfgs:
+ - [ *log_base, *log_file ]
+output: {all: '| tee -a /var/log/cloud-init-output.log'}
+EOF
+
+# Add datsourece list cfg
+#
+echo "adding 90_dpkg.cfg" 
+cat << EOF > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+# to update this file, run dpkg-reconfigure cloud-init
+datasource_list: [ AltCloud, VMware, NoCloud, None ]
+EOF
+
+# Disable cloudinit network config
+#
+echo "adding 99-disable-network-config.cfg"
+cat << EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+network: {config disbaled}
+EOF
 
 # Clear history
 #
