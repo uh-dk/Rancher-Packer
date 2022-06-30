@@ -34,5 +34,5 @@ autoinstall:
   layout:
     name: lvm
   late-commands:
-    - echo 'packerbuilt ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packerbuilt;
-    - chmod 440 /target/etc/sudoers.d/packerbuilt;
+    - echo 'packerbuilt ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packerbuilt
+    - chmod 440 /target/etc/sudoers.d/packerbuilt
