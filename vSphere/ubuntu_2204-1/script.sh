@@ -3,14 +3,14 @@
 ### Network ###
 echo "# Network..."
 
-sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0 \1"/g' /target/etc/default/grub;
-sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf;
+sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0 \1"/g' /etc/default/grub;
+sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /etc/dhcp/dhclient.conf;
 
 echo "removing all netplan configs"
-find /target/etc/netplan/ -name "*.yaml" -exec sh -c 'mv "$1" "$1-orig"' _ {} \;
+find /etc/netplan/ -name "*.yaml" -exec sh -c 'mv "$1" "$1-orig"' _ {} \;
 
 echo "create netplan DHCP config"
-cat <<EOF | sudo tee /target/etc/netplan/01-netcfg.yaml
+cat <<EOF | sudo tee /etc/netplan/01-netcfg.yaml
       network:
         version: 2
         renderer: NetworkManager
