@@ -10,14 +10,14 @@ echo "removing all netplan configs"
 find /etc/netplan/ -name "*.yaml" -exec sh -c 'mv "$1" "$1-orig"' _ {} \;
 
 echo "create netplan DHCP config"
-cat <<EOF | sudo tee /etc/netplan/01-netcfg.yaml
-      network:
-        version: 2
-        renderer: NetworkManager
-        ethernets:
-          eth0:
-            dhcp4: true
-            dhcp-identifier: mac
+cat <<EOF > /etc/netplan/01-netcfg.yaml
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eth0:
+      dhcp4: true
+      dhcp-identifier: mac
 EOF
 
 echo "apply netplan config"
