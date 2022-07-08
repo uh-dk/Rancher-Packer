@@ -229,7 +229,7 @@ EOF
 echo "adding 90_dpkg.cfg" 
 cat << EOF > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
 # to update this file, run dpkg-reconfigure cloud-init
-datasource_list: [ AltCloud, VMware, NoCloud, None ]
+datasource_list: [ AltCloud, OVF, VMware, NoCloud, None ]
 EOF
 
 # Disable cloudinit network config
